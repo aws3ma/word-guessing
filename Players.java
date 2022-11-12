@@ -2,14 +2,18 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Players extends JPanel {
+public class Players extends JPanel implements ActionListener{
     private ArrayList<String> players;
-
+    private JButton add;
     public Players() {
         players = new ArrayList<>();
         players.add("Oussema");
@@ -36,7 +40,12 @@ public class Players extends JPanel {
                         playerspan.add(any);
 
                     }
-                    playerspan.add(new JButton("+"));
+                    add = new JButton("+");
+                    add.setBackground(new Color(0 ,123 ,255));
+                    add.setForeground(Color.WHITE);
+                    add.setFont(new Font("Serif", Font.BOLD, 18));
+                    add.addActionListener(this);
+                    playerspan.add(add);
                     this.add(playerspan);
                     JPanel any = new JPanel();
                     any.setOpaque(false);
@@ -48,5 +57,12 @@ public class Players extends JPanel {
                 }
             }
         }
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==add){
+            new AddPlayer();
+        }
+        
     }
 }
