@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<data>
+    <!-- initializing -->
+    <item>
+        <quest>
+            ingenieur
+        </quest>
+    </item>
+    <!-- after answering -->
+    <item>
+        <quest>
+            chercheur
+        </quest>
+        <answer>
+            chercheur
+        </answer>
+        <player>
+            oussema
+        </player>
+    </item>
+</data>
