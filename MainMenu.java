@@ -8,11 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-public class MainMenu extends JFrame implements ActionListener{
+public class MainMenu extends JFrame implements ActionListener {
     private JButton play;
-    public MainMenu(){
+    private Players p;
+
+    public MainMenu() {
         this.setTitle("Word guessing");
-        this.setSize(800,600);
+        this.setSize(800, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImagePanel pan = new ImagePanel(new ImageIcon("img/background_2.jpg").getImage());
@@ -22,18 +24,22 @@ public class MainMenu extends JFrame implements ActionListener{
         play.setForeground(Color.white);
         play.setFont(new Font("Serif", Font.BOLD, 18));
         play.addActionListener(this);
-        this.add(new MainPanel(play),BorderLayout.CENTER);
-        this.add(new Players(play),BorderLayout.CENTER);
+        p = new Players(play);
+        this.add(new MainPanel(play), BorderLayout.CENTER);
+        this.add(p, BorderLayout.CENTER);
         this.setResizable(false);
         this.pack();
         this.setVisible(true);
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==play){
-            Game g = new Game(Arrays.copyOf(Players.model.toArray(), 2,String[].class));
-            this.add(g);
+        if (e.getSource() == play) {
+            if (p.getNbPlayer() == 2) {
+                Game g = new Game(Arrays.copyOf(Players.model.toArray(), 2, String[].class),this);
+                this.add(g);
+            }
         }
-        
+
     }
 }
