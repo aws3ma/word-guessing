@@ -2,8 +2,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 
-public class Game extends JFrame{
-    public Game(){
+public class MainMenu extends JFrame{
+    public MainMenu(){
         this.setTitle("Word guessing");
         this.setSize(800,600);
         this.setLocationRelativeTo(null);

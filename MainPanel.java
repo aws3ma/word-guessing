@@ -26,11 +26,9 @@ public class MainPanel extends JPanel implements ActionListener{
         exit.setForeground(Color.white);
         exit.setFont(new Font("Serif", Font.BOLD, 18));
         JPanel buttons = new JPanel();
-        buttons.setLayout(new GridLayout(2, 2));
+        buttons.setLayout(new GridLayout(2, 1));
         buttons.add(play);
         buttons.add(exit);
-        buttons.add(new JLabel());
-        buttons.add(new JLabel());
         buttons.setOpaque(false);
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 5; j++) {
