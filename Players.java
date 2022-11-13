@@ -22,12 +22,14 @@ public class Players extends JPanel implements ActionListener {
     private JButton cancel;
     private JTextField name;
     private JFrame addPlayer;
-    DefaultListModel<String> model;
+    private JButton play;
+    public static DefaultListModel<String> model;
 
-    public Players() {
+    public Players(JButton p) {
         nbPlayer = 0;
         display();
-
+        play=p;
+        play.addActionListener(this);
     }
 
     public void display() {
@@ -123,6 +125,8 @@ public class Players extends JPanel implements ActionListener {
                 add.setVisible(false);
             }
         }
-
+        if(e.getSource()==play){
+            this.setVisible(false);
+        }
     }
 }

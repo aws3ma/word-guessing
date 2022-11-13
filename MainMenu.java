@@ -1,8 +1,15 @@
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
 
-public class MainMenu extends JFrame{
+public class MainMenu extends JFrame implements ActionListener{
+    private JButton play;
     public MainMenu(){
         this.setTitle("Word guessing");
         this.setSize(800,600);
@@ -10,10 +17,23 @@ public class MainMenu extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImagePanel pan = new ImagePanel(new ImageIcon("img/background_2.jpg").getImage());
         this.setContentPane(pan);
-        this.add(new MainPanel(),BorderLayout.CENTER);
-        this.add(new Players(),BorderLayout.CENTER);
+        play = new JButton("Play");
+        play.setBackground(new Color(40, 167, 69));
+        play.setForeground(Color.white);
+        play.setFont(new Font("Serif", Font.BOLD, 18));
+        play.addActionListener(this);
+        this.add(new MainPanel(play),BorderLayout.CENTER);
+        this.add(new Players(play),BorderLayout.CENTER);
         this.setResizable(false);
         this.pack();
         this.setVisible(true);
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==play){
+            Game g = new Game(Arrays.copyOf(Players.model.toArray(), 2,String[].class));
+            this.add(g);
+        }
+        
     }
 }
