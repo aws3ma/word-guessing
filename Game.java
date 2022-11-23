@@ -19,16 +19,19 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Game extends JPanel implements ActionListener{
+public class Game extends JPanel implements ActionListener {
     private String[] players;
     private Map<String, String> quests;
-    private  DefaultListModel<Integer> score;
+    private DefaultListModel<Integer> score;
     private JList<String> p;
     private JList<Integer> s;
     private JLabel currentPlayer;
@@ -37,13 +40,17 @@ public class Game extends JPanel implements ActionListener{
     private JButton valider;
     private JButton homeButton;
     private JFrame window;
-    public Game(String[] players,JFrame f) {
-        window=f;
+    private String ques, ans;
+    private List<String> R;
+    private Random generator;
+
+    public Game(String[] players, JFrame f) {
+        window = f;
         quests = new HashMap<>();
         this.players = players;
         this.setOpaque(false);
         this.setSize(new Dimension(800, 600));
-        this.setLayout(new GridLayout(5,3));
+        this.setLayout(new GridLayout(5, 3));
         display();
         this.setVisible(true);
         try {
@@ -51,10 +58,19 @@ public class Game extends JPanel implements ActionListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        generator = new Random();
+        R = new ArrayList<>(quests.keySet());
+        ques = R.get(generator.nextInt(R.size()));
+        ans = quests.get(ques);
+        quests.remove(ques);
+        question.setText(ques);
+        System.out.println(players[0]);
+        System.out.println(players[1]);
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     }
-    public void display(){
-        JPanel scoreboard = new JPanel(new GridLayout(2,3));
+
+    public void display() {
+        JPanel scoreboard = new JPanel(new GridLayout(2, 3));
         scoreboard.setOpaque(false);
         score = new DefaultListModel<>();
         p = new JList<>(players);
@@ -70,10 +86,10 @@ public class Game extends JPanel implements ActionListener{
         scoreboard.add(p);
         scoreboard.add(s);
         scoreboard.add(new JLabel());
-        scoreboard.setPreferredSize(new Dimension(200,400));
+        scoreboard.setPreferredSize(new Dimension(200, 400));
         this.add(scoreboard);
         this.add(new JLabel());
-        JPanel home = new JPanel(new GridLayout(2,3));
+        JPanel home = new JPanel(new GridLayout(2, 3));
         home.setOpaque(false);
         home.add(new JLabel());
         home.add(new JLabel());
@@ -87,7 +103,7 @@ public class Game extends JPanel implements ActionListener{
         home.add(new JLabel());
         this.add(home);
         this.add(new JLabel());
-        currentPlayer = new JLabel("Aymen");
+        currentPlayer = new JLabel("aymne");
         currentPlayer.setHorizontalAlignment(JLabel.CENTER);
         this.add(currentPlayer);
         this.add(new JLabel());
@@ -97,7 +113,7 @@ public class Game extends JPanel implements ActionListener{
         this.add(question);
         this.add(new JLabel());
         this.add(new JLabel());
-        JPanel ans = new JPanel(new GridLayout(3,1));
+        JPanel ans = new JPanel(new GridLayout(3, 1));
         ans.setOpaque(false);
         ans.add(new JLabel());
         answer = new JTextField();
@@ -106,7 +122,7 @@ public class Game extends JPanel implements ActionListener{
         this.add(ans);
         this.add(new JLabel());
         this.add(new JLabel());
-        JPanel validation = new JPanel(new GridLayout(3,3));
+        JPanel validation = new JPanel(new GridLayout(3, 3));
         validation.setOpaque(false);
         valider = new JButton("Valider");
         valider.addActionListener(this);
@@ -114,17 +130,17 @@ public class Game extends JPanel implements ActionListener{
         valider.setForeground(Color.WHITE);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if(i==1 && j==1){
+                if (i == 1 && j == 1) {
                     validation.add(valider);
-                }else{
+                } else {
                     validation.add(new JLabel());
-
                 }
             }
         }
         this.add(validation);
         this.add(new JLabel());
     }
+
     public void readFile() throws ParserConfigurationException, SAXException, IOException {
         File file = new File("questions.xml");
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -136,19 +152,26 @@ public class Game extends JPanel implements ActionListener{
             Node node = nodeList.item(itr);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
-                quests.put(eElement.getElementsByTagName("quest").item(0).getTextContent(), eElement.getElementsByTagName("answer").item(0).getTextContent());
+                quests.put(eElement.getElementsByTagName("quest").item(0).getTextContent(),
+                        eElement.getElementsByTagName("answer").item(0).getTextContent());
             }
         }
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==valider){
-
+        if (e.getSource() == valider) {
+            traitement();
         }
-        if(e.getSource()==homeButton){
+        if (e.getSource() == homeButton) {
             window.setVisible(false);
             new MainMenu();
         }
-        
+    }
+
+    public void traitement() {
+        if (answer.getText().equals(ans)) {
+            System.out.println("success yahooo");
+        }
     }
 }

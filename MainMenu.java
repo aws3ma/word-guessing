@@ -36,7 +36,7 @@ public class MainMenu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == play) {
             if (p.getNbPlayer() == 2) {
-                Game g = new Game(Arrays.copyOf(Players.model.toArray(), 2, String[].class),this);
+                Game g = new Game(Arrays.copyOf(Players.model.toArray(), 2, String[].class), this);
                 this.add(g);
             }
         }
