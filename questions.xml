@@ -2,31 +2,31 @@
 <data>
     <item>
         <quest>Des personnes qui travaillent ensemble ?</quest>
-        <answer>Collegues</answer>
+        <answer>collegues</answer>
     </item>
         <item>
         <quest>Mot ayant la même signification ?</quest>
-        <answer>Synonymes</answer>
+        <answer>synonymes</answer>
     </item>
         <item>
         <quest>La personne qui travaille gratuitement ?</quest>
-        <answer>Volontaire</answer>
+        <answer>volontaire</answer>
     </item>
         <item>
         <quest>Une histoire de vie écrite par soi-même ?</quest>
-        <answer>Autobiographie</answer>
+        <answer>autobiographie</answer>
     </item>
         <item>
         <quest>un objet que l'on garde en souvenir d'un événement ?</quest>
-        <answer>Souvenir</answer>
+        <answer>souvenir</answer>
     </item>
         <item>
         <quest>Une personne qui ne pense qu'à elle-même ?</quest>
-        <answer>Egoiste</answer>
+        <answer>egoiste</answer>
     </item>
         <item>
         <quest>Quelque chose qui ne peut être imité ?</quest>
-        <answer>Inimitable</answer>
+        <answer>inimitable</answer>
     </item>
         <item>
         <quest>Une chose qui n'est plus utilisée ?</quest>
@@ -38,7 +38,7 @@
     </item>
         <item>
         <quest>qui a remporté la coupe du monde 2018 ?</quest>
-        <answer>France</answer>
+        <answer>france</answer>
     </item>
         <item>
         <quest>Quel joueur a gagné 14 ROLAND GARROS ?</quest>
@@ -75,7 +75,7 @@
     </item>
         <item>
         <quest>Quelle est la capitale du Bresil ?</quest>
-        <answer>Brasilia</answer>
+        <answer>brasilia</answer>
     </item>
         <item>
         <quest>Qui est la femme architecte la plus celebre ?</quest>

@@ -42,9 +42,11 @@ public class Game extends JPanel implements ActionListener {
     private JButton homeButton;
     private JFrame window;
     private String ques, ans;
-    private List<String> R;
+    private List<String> keylist;
     private Random generator;
     private int i = 1;
+    private int scorep2 = 0;
+    private int scorep1 = 0;
 
     public Game(String[] players, JFrame f) {
         window = f;
@@ -61,13 +63,11 @@ public class Game extends JPanel implements ActionListener {
             e.printStackTrace();
         }
         generator = new Random();
-        R = new ArrayList<>(quests.keySet());
-        ques = R.get(generator.nextInt(R.size()));
+        keylist = new ArrayList<>(quests.keySet());
+        ques = keylist.get(generator.nextInt(keylist.size()));
         ans = quests.get(ques);
         quests.remove(ques);
         question.setText(ques);
-        // System.out.println(players[0]);
-        // System.out.println(players[1]);
         currentPlayer.setText(players[0]);
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     }
@@ -164,8 +164,7 @@ public class Game extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == valider) {
-            currentPlayer.setText(players[i]);
-            i = 1 - i;
+            traitement();
         }
         if (e.getSource() == homeButton) {
             window.setVisible(false);
@@ -174,6 +173,29 @@ public class Game extends JPanel implements ActionListener {
     }
 
     public void traitement() {
+
+        currentPlayer.setText(players[i]);
+        i = 1 - i;
+        if (answer.getText().equals(ans) == true) {
+            if (i == 0) {
+                scorep1++;
+                score.setElementAt(scorep1, i);
+            } else {
+                scorep2++;
+                score.setElementAt(scorep2, i);
+            }
+            ques = keylist.get(generator.nextInt(quests.size()));
+            ans = quests.get(ques);
+            question.setText(ques);
+            answer.setText("");
+            quests.remove(ques);
+        } else {
+            ques = keylist.get(generator.nextInt(quests.size()));
+            ans = quests.get(ques);
+            question.setText(ques);
+            answer.setText("");
+            quests.remove(ques);
+        }
 
     }
 }
