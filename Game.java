@@ -44,6 +44,7 @@ public class Game extends JPanel implements ActionListener {
     private String ques, ans;
     private List<String> R;
     private Random generator;
+    private int i = 1;
 
     public Game(String[] players, JFrame f) {
         window = f;
@@ -163,7 +164,8 @@ public class Game extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == valider) {
-            traitement();
+            currentPlayer.setText(players[i]);
+            i = 1 - i;
         }
         if (e.getSource() == homeButton) {
             window.setVisible(false);
@@ -172,8 +174,6 @@ public class Game extends JPanel implements ActionListener {
     }
 
     public void traitement() {
-        if (answer.getText().equals(ans)) {
-            System.out.println("success yahooo");
-        }
+
     }
 }
