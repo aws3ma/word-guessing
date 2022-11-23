@@ -1,165 +1,84 @@
 <?xml version="1.1" encoding="UTF-8"?>
 <data>
     <item>
-        <quest>
-            Des personnes qui travaillent ensemble ?
-        </quest>
-        <answer>
-            collegues
-        </answer>
+        <quest>Des personnes qui travaillent ensemble ?</quest>
+        <answer>Collegues</answer>
     </item>
         <item>
-        <quest>
-            Mot ayant la même signification ?
-        </quest>
-        <answer>
-            synonymes
-        </answer>
+        <quest>Mot ayant la même signification ?</quest>
+        <answer>Synonymes</answer>
     </item>
         <item>
-        <quest>
-            La personne qui travaille gratuitement ?
-        </quest>
-        <answer>
-            volontaire
-        </answer>
+        <quest>La personne qui travaille gratuitement ?</quest>
+        <answer>Volontaire</answer>
     </item>
         <item>
-        <quest>
-            Une histoire de vie écrite par soi-même ?
-        </quest>
-        <answer>
-            autobiographie  
-        </answer>
+        <quest>Une histoire de vie écrite par soi-même ?</quest>
+        <answer>Autobiographie</answer>
     </item>
         <item>
-        <quest>
-            un objet que l'on garde en souvenir d'un événement ?
-        </quest>
-        <answer>
-            souvenir
-        </answer>
+        <quest>un objet que l'on garde en souvenir d'un événement ?</quest>
+        <answer>Souvenir</answer>
     </item>
         <item>
-        <quest>
-            Une personne qui ne pense qu'à elle-même ?
-        </quest>
-        <answer>
-            egoiste 
-        </answer>
+        <quest>Une personne qui ne pense qu'à elle-même ?</quest>
+        <answer>Egoiste</answer>
     </item>
         <item>
-        <quest>
-            Quelque chose qui ne peut être imité ?
-        </quest>
-        <answer>
-            inimitable 
-        </answer>
+        <quest>Quelque chose qui ne peut être imité ?</quest>
+        <answer>Inimitable</answer>
     </item>
         <item>
-        <quest>
-            Une chose qui n'est plus utilisée ?
-        </quest>
-        <answer>
-            obsolète
-        </answer>
+        <quest>Une chose qui n'est plus utilisée ?</quest>
+        <answer>obsolète</answer>
     </item>
         <item>
-        <quest>
-            Joueur de Footlball qui a 7 BALLON D'OR ?
-        </quest>
-        <answer>
-            messi
-        </answer>
+        <quest>Joueur de Footlball qui a 7 BALLON D'OR ?</quest>
+        <answer>messi</answer>
     </item>
         <item>
-        <quest>
-            qui a remporté la coupe du monde 2018 ?
-        </quest>
-        <answer>
-            france
-        </answer>
+        <quest>qui a remporté la coupe du monde 2018 ?</quest>
+        <answer>France</answer>
     </item>
         <item>
-        <quest>
-            Quel joueur a gagné 14 ROLAND GARROS ?
-        </quest>
-        <answer>
-            nadal 
-        </answer>
+        <quest>Quel joueur a gagné 14 ROLAND GARROS ?</quest>
+        <answer>nadal</answer>
     </item>
         <item>
-        <quest>
-            quelqu'un qui ne sait ni lire ni écrire ?
-        </quest>
-        <answer>
-            illettrisme 
-        </answer>
+        <quest>quelqu'un qui ne sait ni lire ni écrire ?</quest>
+        <answer>illettrisme</answer>
     </item>
         <item>
-        <quest>
-            Qui est propriétaire de Tesla ?
-        </quest>
-        <answer>
-            elonmask
-        </answer>
+        <quest>Qui est propriétaire de Tesla ?</quest>
+        <answer>elonmask</answer>
     </item>
         <item>
-        <quest>
-            Qui est propriétaire de Amazone ?
-        </quest>
-        <answer>
-            jeffbezos
-        </answer>
+        <quest>Qui est propriétaire de Amazone ?</quest>
+        <answer>jeffbezos</answer>
     </item>
         <item>
-        <quest>
-            Quelle est la capitale de la France ?
-        </quest>
-        <answer>
-            paris 
-        </answer>
+        <quest>Quelle est la capitale de la France ?</quest>
+        <answer>paris</answer>
     </item>
         <item>
-        <quest>
-            Qui est propriétaire de Meta ?
-        </quest>
-        <answer>
-            markzuckerberg 
-        </answer>
+        <quest>Qui est propriétaire de Meta ?</quest>
+        <answer>markzuckerberg</answer>
 
     </item>
         <item>
-        <quest>
-            Quelle est la capitale des États-Unis ?
-        </quest>
-        <answer>
-            washington
-        </answer>
+        <quest>Quelle est la capitale des États-Unis ?</quest>
+        <answer>washington</answer>
     </item>
         <item>
-        <quest>
-            quelle est la capitale de l'Angleterre ?
-        </quest>
-        <answer>
-            london 
-        </answer>
+        <quest>quelle est la capitale de l'Angleterre ?</quest>
+        <answer>london</answer>
     </item>
         <item>
-        <quest>
-            Quelle est la capitale du Bresil ?
-        </quest>
-        <answer>
-            brasilia
-        </answer>
+        <quest>Quelle est la capitale du Bresil ?</quest>
+        <answer>Brasilia</answer>
     </item>
         <item>
-        <quest>
-            Qui est la femme architecte la plus celebre ?
-        </quest>
-        <answer>
-            zahahadid 
-        </answer>
+        <quest>Qui est la femme architecte la plus celebre ?</quest>
+        <answer>zahahadid</answer>
     </item>
-
 </data>

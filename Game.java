@@ -35,7 +35,8 @@ public class Game extends JPanel implements ActionListener {
     private JList<String> p;
     private JList<Integer> s;
     private JLabel currentPlayer;
-    private JLabel question;
+    // private JLabel question;
+    private JMultilineLabel question;
     private JTextField answer;
     private JButton valider;
     private JButton homeButton;
@@ -64,8 +65,9 @@ public class Game extends JPanel implements ActionListener {
         ans = quests.get(ques);
         quests.remove(ques);
         question.setText(ques);
-        System.out.println(players[0]);
-        System.out.println(players[1]);
+        // System.out.println(players[0]);
+        // System.out.println(players[1]);
+        currentPlayer.setText(players[0]);
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     }
 
@@ -103,13 +105,13 @@ public class Game extends JPanel implements ActionListener {
         home.add(new JLabel());
         this.add(home);
         this.add(new JLabel());
-        currentPlayer = new JLabel("aymne");
+        currentPlayer = new JLabel("");
         currentPlayer.setHorizontalAlignment(JLabel.CENTER);
         this.add(currentPlayer);
         this.add(new JLabel());
         this.add(new JLabel());
-        question = new JLabel("Question");
-        question.setHorizontalAlignment(JLabel.CENTER);
+        question = new JMultilineLabel("Question");
+        // question.setHorizontalAlignment(JLabel.CENTER);
         this.add(question);
         this.add(new JLabel());
         this.add(new JLabel());

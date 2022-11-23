@@ -40,6 +40,5 @@ public class MainMenu extends JFrame implements ActionListener {
                 this.add(g);
             }
         }
-
     }
 }
