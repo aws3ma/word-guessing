@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 public class Game extends JPanel implements ActionListener {
     private String[] players;
     private Map<String, String> quests;
+    private Map<Integer, Character> cryptedWord;
     private DefaultListModel<Integer> score;
     private JList<String> p;
     private JList<Integer> s;
@@ -68,6 +69,11 @@ public class Game extends JPanel implements ActionListener {
         ans = quests.get(ques);
         quests.remove(ques);
         question.setText(ques);
+        cryptedWord = new HashMap<>();
+        cryptedWord = getCyptedWord();
+        // cryptedWord.entrySet().forEach(entry -> {
+        // System.out.println(entry.getKey() + " " + entry.getValue());
+        // });
         currentPlayer.setText(players[0]);
         this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     }
@@ -188,14 +194,73 @@ public class Game extends JPanel implements ActionListener {
             ans = quests.get(ques);
             question.setText(ques);
             answer.setText("");
+            cryptedWord = getCyptedWord();
+            cryptedWord.entrySet().forEach(entry -> {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            });
             quests.remove(ques);
         } else {
             ques = keylist.get(generator.nextInt(quests.size()));
             ans = quests.get(ques);
             question.setText(ques);
             answer.setText("");
+            cryptedWord = getCyptedWord();
+            cryptedWord.entrySet().forEach(entry -> {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            });
             quests.remove(ques);
         }
 
+    }
+
+    public Map<Integer, Character> getCyptedWord() {
+
+        Map<Integer, Character> cryptedWord = new HashMap<Integer, Character>();
+        String test = ans;
+
+        if (ans.length() > 12) {
+            Random random1 = new Random();
+            int index = random1.nextInt(test.length());
+            char a = test.charAt(index);
+            cryptedWord.put(index, a);
+            test = test.replaceFirst(String.valueOf(a), "");
+
+            Random random2 = new Random();
+            int index2 = random2.nextInt(test.length());
+            char a2 = test.charAt(index2);
+            cryptedWord.put(index2, a2);
+            test = test.replaceFirst(String.valueOf(a2), "");
+
+            Random random3 = new Random();
+            int index3 = random3.nextInt(test.length());
+            char a3 = test.charAt(index3);
+            cryptedWord.put(index3, a3);
+            test = test.replaceFirst(String.valueOf(a3), "");
+
+        }
+
+        else if (ans.length() <= 12 || ans.length() >= 9) {
+
+            Random random = new Random();
+            int index = random.nextInt(test.length());
+            char a = test.charAt(index);
+            cryptedWord.put(index, a);
+
+            Random random2 = new Random();
+            int index2 = random2.nextInt(test.length());
+            char a2 = test.charAt(index2);
+            cryptedWord.put(index2, a2);
+            test = test.replaceFirst(String.valueOf(a2), "");
+
+        }
+
+        else {
+            Random random = new Random();
+            int index = random.nextInt(test.length());
+            char a = test.charAt(index);
+            cryptedWord.put(index, a);
+        }
+
+        return cryptedWord;
     }
 }
