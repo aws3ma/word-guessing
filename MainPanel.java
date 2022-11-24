@@ -17,7 +17,6 @@ public class MainPanel extends JPanel implements ActionListener{
         this.setOpaque(false);
         this.setSize(new Dimension(800, 600));
         this.setLayout(new GridLayout(4, 5));
-        
         play.addActionListener(this);
         exit = new JButton("Exit");
         exit.setBackground(new Color(220, 53, 69));
@@ -52,7 +51,8 @@ public class MainPanel extends JPanel implements ActionListener{
             System.exit(0);
         }
         if(e.getSource()==play){
-            this.setVisible(false);
+            if(Players.nbPlayer==2)
+                this.setVisible(false);
         }
     }
 

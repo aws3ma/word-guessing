@@ -7,7 +7,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -15,8 +16,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Players extends JPanel implements ActionListener {
-    private int nbPlayer;
+public class Players extends JPanel implements ActionListener, KeyListener {
+    public static int nbPlayer;
+    
     private JButton add;
     private JButton confirm;
     private JButton cancel;
@@ -24,12 +26,16 @@ public class Players extends JPanel implements ActionListener {
     private JFrame addPlayer;
     private JButton play;
     public static DefaultListModel<String> model;
+    public int getNbPlayer() {
+        return nbPlayer;
+    }
 
     public Players(JButton p) {
         nbPlayer = 0;
         display();
         play=p;
         play.addActionListener(this);
+        this.addKeyListener(this);
     }
 
     public void display() {
@@ -88,6 +94,7 @@ public class Players extends JPanel implements ActionListener {
         JPanel buttons = new JPanel(new BorderLayout());
         JPanel input = new JPanel(new BorderLayout());
         name = new JTextField();
+        name.addKeyListener(this);
         name.setPreferredSize(new Dimension(180, 40));
         input.add(new JLabel("Name : "), BorderLayout.LINE_START);
         input.add(name, BorderLayout.LINE_END);
@@ -126,7 +133,36 @@ public class Players extends JPanel implements ActionListener {
             }
         }
         if(e.getSource()==play){
-            this.setVisible(false);
+            if(nbPlayer<2){
+                addPlayer();
+            }else{
+
+                this.setVisible(false);
+            }
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            addPlayer.setVisible(false);
+            if (nbPlayer < 2) {
+                model.addElement(name.getText());
+                nbPlayer++;
+            }
+            if(nbPlayer==2){
+                add.setVisible(false);
+            }
+        }
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 }
