@@ -31,7 +31,8 @@ import java.awt.event.ActionListener;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-public class Game extends JPanel implements ActionListener,KeyListener {
+
+public class Game extends JPanel implements ActionListener, KeyListener {
     private String[] players;
     private Map<String, String> quests;
     private Map<Integer, Character> cryptedWord;
@@ -41,7 +42,6 @@ public class Game extends JPanel implements ActionListener,KeyListener {
     private JLabel currentPlayer;
     // private JLabel question;
     private JMultilineLabel question;
-    private JTextField answer;
     private JButton valider;
     private JButton homeButton;
     private JFrame window;
@@ -54,6 +54,7 @@ public class Game extends JPanel implements ActionListener,KeyListener {
     private JPanel answerPanel;
     private JPanel JPans;
     private GridLayout gr;
+
     public Game(String[] players, JFrame f) {
         window = f;
         quests = new HashMap<>();
@@ -131,9 +132,8 @@ public class Game extends JPanel implements ActionListener,KeyListener {
         JPans = new JPanel(new GridLayout(3, 1));
         JPans.setOpaque(false);
         JPans.add(new JLabel());
-        answer = new JTextField();
         int n = this.ans.length();
-        gr = new GridLayout(1,n);
+        gr = new GridLayout(1, n);
         answerPanel = new JPanel(gr);
         answerPanel.setOpaque(false);
         prepareAnswerPane(n);
@@ -196,14 +196,16 @@ public class Game extends JPanel implements ActionListener,KeyListener {
         ArrayList<Integer> indexes = new ArrayList<>(cryptedWord.keySet());
         for (int i = 0; i < n; i++) {
             if (this.ans.charAt(i) != ' ') {
-                JTextField jt=new JTextField();
+                JTextField jt = new JTextField();
+                jt.setDocument(new LengthRestrictedDocument(1));
                 jt.addKeyListener(this);
                 for (Integer integer : indexes) {
-                    if(i==integer.intValue()){
-                         jt.setText(cryptedWord.get(integer)+"");
-                         jt.setForeground(Color.GREEN);
-                         jt.setEnabled(false);
-                        break;}
+                    if (i == integer.intValue()) {
+                        jt.setText(cryptedWord.get(integer) + "");
+                        jt.setForeground(Color.GREEN);
+                        jt.setEditable(false);
+                        break;
+                    }
                 }
                 jt.setPreferredSize(new Dimension(20, 20));
                 jt.setAlignmentY(JTextField.CENTER_ALIGNMENT);
@@ -217,7 +219,7 @@ public class Game extends JPanel implements ActionListener,KeyListener {
             }
 
         }
-        
+
     }
 
     public void traitement() {
@@ -237,18 +239,20 @@ public class Game extends JPanel implements ActionListener,KeyListener {
                 currentPlayer.setText("ni personne gagne");
             }
             currentPlayer.setFont(new Font("Serif", Font.PLAIN, 30));
-            answer.setVisible(false);
+            answerPanel.setVisible(false);
         } else {
             currentPlayer.setText(players[i]);
             i = 1 - i;
             Component[] componentList = answerPanel.getComponents();
-            String ch="";
-            for(Component c : componentList){
-                if(c instanceof JTextField)
-                    ch+=((JTextField)c).getText();
+            String ch = "";
+            for (Component c : componentList) {
+                if (c instanceof JTextField)
+                    ch += ((JTextField) c).getText();
+                if (c instanceof JLabel)
+                    ch += " ";
             }
             System.out.println(ch);
-            if (answer.getText().equals(ch)) {
+            if (ans.equals(ch)) {
                 if (i == 0) {
                     scorep1++;
                     score.setElementAt(scorep1, i);
@@ -259,13 +263,12 @@ public class Game extends JPanel implements ActionListener,KeyListener {
             }
             ques = keylist.get(generator.nextInt(quests.size()));
             ans = quests.get(ques);
-            prepareAnswerPane(ans.length());
-            question.setText(ques);
-            answer.setText("");
             cryptedWord = getCyptedWord();
             cryptedWord.entrySet().forEach(entry -> {
                 System.out.println(entry.getKey() + " " + entry.getValue());
             });
+            prepareAnswerPane(ans.length());
+            question.setText(ques);
             quests.remove(ques);
             // update keylist to avoid getting questions already deleted
             keylist = new ArrayList<>(quests.keySet());
@@ -280,7 +283,7 @@ public class Game extends JPanel implements ActionListener,KeyListener {
                     currentPlayer.setText(players[1] + " gagné");
                 currentPlayer.setForeground(Color.GREEN);
                 currentPlayer.setFont(new Font("Serif", Font.PLAIN, 30));
-                answer.setVisible(false);
+                answerPanel.setVisible(false);
             }
         }
     }
@@ -338,29 +341,40 @@ public class Game extends JPanel implements ActionListener,KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
         
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
+        
         
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode()>=65 && e.getKeyCode() <=90){
-            int i=0;
+        if (e.getKeyCode() >= 65 && e.getKeyCode() <= 90) {
+            int i = -1;
             Component[] componentList = answerPanel.getComponents();
-            for(Component c : componentList){
+            for (Component c : componentList) {
                 i++;
-                if(c==e.getSource())
+                if (c == e.getSource())
                     break;
             }
-            JTextField jttemp=(JTextField)componentList[i];
-            jttemp.requestFocus();
+            if (i > -1 && i < componentList.length-1) {
+                i++;
+                JTextField jttemp =null;
+                if (componentList[i] instanceof JTextField) {
+                    jttemp = (JTextField) componentList[i];
+                }else{
+                    i++;
+                    jttemp = (JTextField) componentList[i];
+                }
+                while (jttemp.isEditable() == false && i<componentList.length-1) {
+                    jttemp = (JTextField) componentList[++i];
+                }
+                jttemp.requestFocus();
+            }
         }
-            
     }
 }
