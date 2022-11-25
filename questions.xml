@@ -34,7 +34,7 @@
     </item>
     <item>
         <quest>Joueur de Footlball qui a 7 BALLON D'OR ?</quest>
-        <answer>messi</answer>
+        <answer>lionel messi</answer>
     </item>
     <item>
         <quest>qui a remporté la coupe du monde 2018 ?</quest>
@@ -50,11 +50,11 @@
     </item>
     <item>
         <quest>Qui est propriétaire de Tesla ?</quest>
-        <answer>elonmask</answer>
+        <answer>elon musk</answer>
     </item>
     <item>
         <quest>Qui est propriétaire de Amazone ?</quest>
-        <answer>jeffbezos</answer>
+        <answer>jeff bezos</answer>
     </item>
     <item>
         <quest>Quelle est la capitale de la France ?</quest>
@@ -62,7 +62,7 @@
     </item>
     <item>
         <quest>Qui est propriétaire de Meta ?</quest>
-        <answer>markzuckerberg</answer>
+        <answer>mark zuckerberg</answer>
 
     </item>
     <item>
@@ -79,6 +79,6 @@
     </item>
     <item>
         <quest>Qui est la femme architecte la plus celebre ?</quest>
-        <answer>zahahadid</answer>
+        <answer>zaha hadid</answer>
     </item>
 </data>

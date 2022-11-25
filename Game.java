@@ -28,8 +28,10 @@ import java.util.Random;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-public class Game extends JPanel implements ActionListener {
+import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+public class Game extends JPanel implements ActionListener,KeyListener {
     private String[] players;
     private Map<String, String> quests;
     private Map<Integer, Character> cryptedWord;
@@ -49,7 +51,9 @@ public class Game extends JPanel implements ActionListener {
     private int i = 1;
     private int scorep2 = 0;
     private int scorep1 = 0;
-
+    private JPanel answerPanel;
+    private JPanel JPans;
+    private GridLayout gr;
     public Game(String[] players, JFrame f) {
         window = f;
         quests = new HashMap<>();
@@ -57,8 +61,6 @@ public class Game extends JPanel implements ActionListener {
         this.setOpaque(false);
         this.setSize(new Dimension(800, 600));
         this.setLayout(new GridLayout(5, 3));
-        display();
-        this.setVisible(true);
         try {
             readFile();
         } catch (Exception e) {
@@ -69,9 +71,13 @@ public class Game extends JPanel implements ActionListener {
         ques = keylist.get(generator.nextInt(keylist.size()));
         ans = quests.get(ques);
         quests.remove(ques);
+        question = new JMultilineLabel("Question");
+
         question.setText(ques);
         // cryptedWord = new HashMap<>();
         cryptedWord = getCyptedWord();
+        display();
+        this.setVisible(true);
         // cryptedWord.entrySet().forEach(entry -> {
         // System.out.println(entry.getKey() + " " + entry.getValue());
         // });
@@ -118,18 +124,22 @@ public class Game extends JPanel implements ActionListener {
         this.add(currentPlayer);
         this.add(new JLabel());
         this.add(new JLabel());
-        question = new JMultilineLabel("Question");
         // question.setHorizontalAlignment(JLabel.CENTER);
         this.add(question);
         this.add(new JLabel());
         this.add(new JLabel());
-        JPanel ans = new JPanel(new GridLayout(3, 1));
-        ans.setOpaque(false);
-        ans.add(new JLabel());
+        JPans = new JPanel(new GridLayout(3, 1));
+        JPans.setOpaque(false);
+        JPans.add(new JLabel());
         answer = new JTextField();
-        ans.add(answer);
-        ans.add(new JLabel());
-        this.add(ans);
+        int n = this.ans.length();
+        gr = new GridLayout(1,n);
+        answerPanel = new JPanel(gr);
+        answerPanel.setOpaque(false);
+        prepareAnswerPane(n);
+        JPans.add(answerPanel);
+        JPans.add(new JLabel());
+        this.add(JPans);
         this.add(new JLabel());
         this.add(new JLabel());
         JPanel validation = new JPanel(new GridLayout(3, 3));
@@ -179,60 +189,99 @@ public class Game extends JPanel implements ActionListener {
         }
     }
 
+    public void prepareAnswerPane(int n) {
+        answerPanel.removeAll();
+        gr.setColumns(n);
+        answerPanel.setLayout(gr);
+        ArrayList<Integer> indexes = new ArrayList<>(cryptedWord.keySet());
+        for (int i = 0; i < n; i++) {
+            if (this.ans.charAt(i) != ' ') {
+                JTextField jt=new JTextField();
+                jt.addKeyListener(this);
+                for (Integer integer : indexes) {
+                    if(i==integer.intValue()){
+                         jt.setText(cryptedWord.get(integer)+"");
+                         jt.setForeground(Color.GREEN);
+                         jt.setEnabled(false);
+                        break;}
+                }
+                jt.setPreferredSize(new Dimension(20, 20));
+                jt.setAlignmentY(JTextField.CENTER_ALIGNMENT);
+                jt.setAlignmentX(JTextField.CENTER_ALIGNMENT);
+                answerPanel.add(jt);
+            } else {
+                JLabel jl = new JLabel("  ");
+                jl.setOpaque(false);
+                jl.setPreferredSize(new Dimension(10, 20));
+                answerPanel.add(jl);
+            }
+
+        }
+        
+    }
+
     public void traitement() {
-        if(quests.isEmpty()){
+        if (quests.isEmpty()) {
             valider.setEnabled(false);
             question.setText("Aucune question disponible");
-            if(scorep1!=scorep2){
-                if(scorep1>scorep2){
-                    currentPlayer.setText(players[0]+" gagné");
+            if (scorep1 != scorep2) {
+                if (scorep1 > scorep2) {
+                    currentPlayer.setText(players[0] + " gagné");
                 }
-                if(scorep1<scorep2){
-    
-                    currentPlayer.setText(players[1]+" gagné");
+                if (scorep1 < scorep2) {
+
+                    currentPlayer.setText(players[1] + " gagné");
                 }
                 currentPlayer.setForeground(Color.GREEN);
-            }else if(scorep1==scorep2){
+            } else if (scorep1 == scorep2) {
                 currentPlayer.setText("ni personne gagne");
             }
             currentPlayer.setFont(new Font("Serif", Font.PLAIN, 30));
             answer.setVisible(false);
-        }else{
-        currentPlayer.setText(players[i]);
-        i = 1 - i;
-        if (answer.getText().equals(ans)) {
-            if (i == 0) {
-                scorep1++;
-                score.setElementAt(scorep1, i);
-            } else {
-                scorep2++;
-                score.setElementAt(scorep2, i);
+        } else {
+            currentPlayer.setText(players[i]);
+            i = 1 - i;
+            Component[] componentList = answerPanel.getComponents();
+            String ch="";
+            for(Component c : componentList){
+                if(c instanceof JTextField)
+                    ch+=((JTextField)c).getText();
             }
-        }
-        ques = keylist.get(generator.nextInt(quests.size()));
-        ans = quests.get(ques);
-        question.setText(ques);
-        answer.setText("");
-        cryptedWord = getCyptedWord();
-        cryptedWord.entrySet().forEach(entry -> {
-            System.out.println(entry.getKey() + " " + entry.getValue());
-        });
-        quests.remove(ques);
-        //update keylist to avoid getting questions already deleted
-        keylist = new ArrayList<>(quests.keySet());
-        s.setOpaque(false);
-        if(scorep1==10 || scorep2==10){
-            valider.setEnabled(false);
-            question.setText("Jeu terminer");
-            if(scorep1==10){
-                currentPlayer.setText(players[0]+" gagné");
+            System.out.println(ch);
+            if (answer.getText().equals(ch)) {
+                if (i == 0) {
+                    scorep1++;
+                    score.setElementAt(scorep1, i);
+                } else {
+                    scorep2++;
+                    score.setElementAt(scorep2, i);
+                }
             }
-            if(scorep2==10)
-                currentPlayer.setText(players[1]+" gagné");
-            currentPlayer.setForeground(Color.GREEN);
-            currentPlayer.setFont(new Font("Serif", Font.PLAIN, 30));
-            answer.setVisible(false);
-        }
+            ques = keylist.get(generator.nextInt(quests.size()));
+            ans = quests.get(ques);
+            prepareAnswerPane(ans.length());
+            question.setText(ques);
+            answer.setText("");
+            cryptedWord = getCyptedWord();
+            cryptedWord.entrySet().forEach(entry -> {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            });
+            quests.remove(ques);
+            // update keylist to avoid getting questions already deleted
+            keylist = new ArrayList<>(quests.keySet());
+            s.setOpaque(false);
+            if (scorep1 == 10 || scorep2 == 10) {
+                valider.setEnabled(false);
+                question.setText("Jeu terminer");
+                if (scorep1 == 10) {
+                    currentPlayer.setText(players[0] + " gagné");
+                }
+                if (scorep2 == 10)
+                    currentPlayer.setText(players[1] + " gagné");
+                currentPlayer.setForeground(Color.GREEN);
+                currentPlayer.setFont(new Font("Serif", Font.PLAIN, 30));
+                answer.setVisible(false);
+            }
         }
     }
 
@@ -285,5 +334,33 @@ public class Game extends JPanel implements ActionListener {
         }
 
         return cryptedWord;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode()>=65 && e.getKeyCode() <=90){
+            int i=0;
+            Component[] componentList = answerPanel.getComponents();
+            for(Component c : componentList){
+                i++;
+                if(c==e.getSource())
+                    break;
+            }
+            JTextField jttemp=(JTextField)componentList[i];
+            jttemp.requestFocus();
+        }
+            
     }
 }
