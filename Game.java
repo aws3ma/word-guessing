@@ -292,8 +292,27 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         Map<Integer, Character> cryptedWord = new HashMap<Integer, Character>();
         String test = ans;
+        if (ans.length() < 6) {
+            Random random = new Random();
+            int index = random.nextInt(test.length());
+            char a = test.charAt(index);
+            cryptedWord.put(index, a);
+            return cryptedWord;
+        } else if (ans.length() < 13) {
 
-        if (ans.length() > 12) {
+            Random random = new Random();
+            int index = random.nextInt(test.length());
+            char a = test.charAt(index);
+            cryptedWord.put(index, a);
+
+            Random random2 = new Random();
+            int index2 = random2.nextInt(test.length());
+            char a2 = test.charAt(index2);
+            cryptedWord.put(index2, a2);
+            test = test.replaceFirst(String.valueOf(a2), "");
+            return cryptedWord;
+
+        } else {
             Random random1 = new Random();
             int index = random1.nextInt(test.length());
             char a = test.charAt(index);
@@ -311,44 +330,20 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             char a3 = test.charAt(index3);
             cryptedWord.put(index3, a3);
             test = test.replaceFirst(String.valueOf(a3), "");
-
+            return cryptedWord;
         }
 
-        else if (ans.length() <= 12 || ans.length() >= 9) {
-
-            Random random = new Random();
-            int index = random.nextInt(test.length());
-            char a = test.charAt(index);
-            cryptedWord.put(index, a);
-
-            Random random2 = new Random();
-            int index2 = random2.nextInt(test.length());
-            char a2 = test.charAt(index2);
-            cryptedWord.put(index2, a2);
-            test = test.replaceFirst(String.valueOf(a2), "");
-
-        }
-
-        else {
-            Random random = new Random();
-            int index = random.nextInt(test.length());
-            char a = test.charAt(index);
-            cryptedWord.put(index, a);
-        }
-
-        return cryptedWord;
+        
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        
 
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
-        
+
     }
 
     @Override
@@ -361,16 +356,16 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 if (c == e.getSource())
                     break;
             }
-            if (i > -1 && i < componentList.length-1) {
+            if (i > -1 && i < componentList.length - 1) {
                 i++;
-                JTextField jttemp =null;
+                JTextField jttemp = null;
                 if (componentList[i] instanceof JTextField) {
                     jttemp = (JTextField) componentList[i];
-                }else{
+                } else {
                     i++;
                     jttemp = (JTextField) componentList[i];
                 }
-                while (jttemp.isEditable() == false && i<componentList.length-1) {
+                while (jttemp.isEditable() == false && i < componentList.length - 1) {
                     jttemp = (JTextField) componentList[++i];
                 }
                 jttemp.requestFocus();
